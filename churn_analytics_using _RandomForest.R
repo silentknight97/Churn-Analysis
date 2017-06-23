@@ -73,8 +73,7 @@ telecomDataframe$TechSupport <- as.factor(telecomDataframe$TechSupport)
 telecomDataframe$StreamingTV <- as.factor(telecomDataframe$StreamingTV)
 telecomDataframe$StreamingMovies <- as.factor(telecomDataframe$StreamingMovies)
 
-# check the number of NA rows if it is relatively small in number then ignore those rows from the analysis
-telecomDataframe <- na.omit(telecomDataframe)
+
 
 # set the seed it will output same output when ever the model is executed
 set.seed(123)
@@ -83,6 +82,14 @@ set.seed(123)
 sample <- sample.split(telecomDataframe$Churn,SplitRatio=0.70)
 trainData <- subset(telecomDataframe,sample==TRUE)
 testData <- subset(telecomDataframe,sample==FALSE)
+
+#CORRELATION
+DF <- lapply(trainData,as.integer)
+DF=as.data.frame(DF)
+library(sjPlot)
+sjp.corr(DF)
+sjt.corr(DF)
+
 fit <- randomForest(Churn ~ .-(gender+Partner), trainData,ntree=500)
 test.predictions= predict(fit,testData)
 fitted.results <- ifelse(test.predictions == "Yes",1,0)
