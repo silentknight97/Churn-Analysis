@@ -4,11 +4,17 @@ library(Amelia)
 library(dplyr)
 library(randomForest)
 library(Boruta)
+library(DMwR)
 #read the csv
 telecomDataframe <- read.csv(file="C:/Users/MM0C70212/Downloads/WA_Fn-UseC_-Telco-Customer-Churn.csv")
 
 # check for the NA values 
 any(is.na(telecomDataframe))
+
+# for filling the NA values using knn imputation
+#to know how to fill the missing values refer to the article on site www.analyticslearn.com
+telecomDataframe <- knnImpute(telecomDataframe,k=10,scale= T,meth="mean")
+
 
 # visualize the missing values using the missing map from the Amelia package
 missmap(telecomDataframe,col=c("yellow","red"))
