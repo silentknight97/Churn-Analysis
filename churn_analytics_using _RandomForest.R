@@ -13,7 +13,7 @@ any(is.na(telecomDataframe))
 
 # for filling the NA values using knn imputation
 #to know how to fill the missing values refer to the article on site www.analyticslearn.com
-telecomDataframe <- knnImpute(telecomDataframe,k=10,scale= T,meth="mean")
+telecomDataframe <- knnImputation(telecomDataframe,k=10,scale= T,meth="mean")
 
 
 # visualize the missing values using the missing map from the Amelia package
